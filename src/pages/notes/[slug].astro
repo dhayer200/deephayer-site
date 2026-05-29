@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+export async function getStaticPaths() {
+  const notes = await getCollection("notes", ({ data }) => data.status === "published");
+  return notes.map((n) => ({ params: { slug: n.slug }, props: { note: n } }));
+}
+
+const { note } = Astro.props;
+const { Content } = await note.render();
+const { title, date, kind } = note.data;
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+---
+
+<Layout title={`${title} · Notes`}>
+  <article>
+    <p class="trail"><a href="/notes">notes</a></p>
+    <h1>{title}</h1>
+    <p class="meta"><time>{fmt(date)}</time> · <span class="kind">{kind}</span></p>
+    <Content />
+  </article>
+</Layout>
+
+<style>
+  .trail { color: var(--fg-muted); font-size: 0.85rem; margin: 0 0 0.3em; }
+  .trail a { color: var(--fg-muted); }
+  .meta { color: var(--fg-muted); font-size: 0.9rem; margin: -0.5em 0 1.5em; }
+  .kind { font-style: italic; }
+</style>

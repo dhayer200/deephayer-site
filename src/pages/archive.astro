@@ -1,0 +1,60 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const e = (await getCollection("essays", ({ data }) => data.status === "published"))
+  .map((p) => ({ href: `/essays/${p.slug}`, title: p.data.title, date: p.data.date, section: "essay" }));
+const a = (await getCollection("analysis", ({ data }) => data.status === "published"))
+  .map((p) => ({ href: `/analysis/${p.slug}`, title: p.data.title, date: p.data.date, section: `analysis · ${p.data.category}` }));
+const n = (await getCollection("notes", ({ data }) => data.status === "published"))
+  .map((p) => ({ href: `/notes/${p.slug}`, title: p.data.title, date: p.data.date, section: `note · ${p.data.kind}` }));
+
+const all = [...e, ...a, ...n].sort((x, y) => y.date.valueOf() - x.date.valueOf());
+
+const grouped = new Map<number, typeof all>();
+for (const item of all) {
+  const y = item.date.getFullYear();
+  if (!grouped.has(y)) grouped.set(y, []);
+  grouped.get(y)!.push(item);
+}
+const years = [...grouped.keys()].sort((a, b) => b - a);
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Layout title="Archive · Deep Hayer">
+  <h1>Archive</h1>
+  <p class="dim">Everything published, newest first.</p>
+
+  {years.map((y) => (
+    <section>
+      <h2>{y}</h2>
+      <ul class="list">
+        {grouped.get(y)!.map((item) => (
+          <li>
+            <time>{fmt(item.date)}</time>
+            <span class="sec">{item.section}</span>
+            <a href={item.href}>{item.title}</a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</Layout>
+
+<style>
+  .dim { color: var(--fg-muted); }
+  .list { list-style: none; padding: 0; }
+  .list li { padding: 0.2em 0; }
+  .list time {
+    display: inline-block;
+    width: 6.2rem;
+    color: var(--fg-muted);
+    font-size: 0.88rem;
+  }
+  .list .sec {
+    color: var(--fg-muted);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin-right: 0.6rem;
+  }
+</style>

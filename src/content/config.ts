@@ -1,5 +1,38 @@
 import { defineCollection, z } from "astro:content";
 
+const baseSchema = z.object({
+  title: z.string(),
+  date: z.coerce.date(),
+  description: z.string().optional(),
+  tags: z.array(z.string()).default([]),
+  status: z.enum(["draft", "published"]).default("published"),
+  project: z.string().optional(),
+  featured: z.boolean().default(false),
+});
+
+const essays = defineCollection({
+  type: "content",
+  schema: baseSchema.extend({
+    section: z.literal("essays").default("essays"),
+  }),
+});
+
+const analysis = defineCollection({
+  type: "content",
+  schema: baseSchema.extend({
+    section: z.literal("analysis").default("analysis"),
+    category: z.enum(["sports", "cre", "ma", "finance", "data"]),
+  }),
+});
+
+const notes = defineCollection({
+  type: "content",
+  schema: baseSchema.extend({
+    section: z.literal("notes").default("notes"),
+    kind: z.enum(["haiku", "fragment", "quote", "observation", "story"]).default("fragment"),
+  }),
+});
+
 const projects = defineCollection({
   type: "content",
   schema: z.object({
@@ -20,15 +53,4 @@ const projects = defineCollection({
   }),
 });
 
-const writing = defineCollection({
-  type: "content",
-  schema: z.object({
-    title: z.string(),
-    date: z.coerce.date(),
-    tags: z.array(z.string()).default([]),
-    summary: z.string().optional(),
-    draft: z.boolean().default(false),
-  }),
-});
-
-export const collections = { projects, writing };
+export const collections = { essays, analysis, notes, projects };

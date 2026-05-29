@@ -1,79 +1,47 @@
 ---
 const { pathname } = Astro.url;
-const isActive = (path: string) =>
-  pathname === path || (path !== "/" && pathname.startsWith(path));
+const is = (p: string) => pathname === p || (p !== "/" && pathname.startsWith(p));
 ---
 
-<header class="site-header">
-  <a class="brand" href="/">Deep Hayer</a>
-  <nav>
-    <a href="/projects" class:list={[isActive("/projects") && "active"]}>Projects</a>
-    <a href="/essais" class:list={[isActive("/essais") && "active"]}>Essais</a>
-    <a href="/now" class:list={[isActive("/now") && "active"]}>Now</a>
-    <a href="/about" class:list={[isActive("/about") && "active"]}>About</a>
-    <a href="/graph" class:list={[isActive("/graph") && "active"]}>Graph</a>
-    <button id="theme-toggle" aria-label="Toggle theme" type="button">◐</button>
-  </nav>
+<header>
+  <div class="wrap">
+    <a class="name" href="/">Deep Hayer</a>
+    <nav>
+      <a href="/essays" class:list={[is("/essays") && "active"]}>essays</a>
+      <a href="/analysis" class:list={[is("/analysis") && "active"]}>analysis</a>
+      <a href="/projects" class:list={[is("/projects") && "active"]}>projects</a>
+      <a href="/notes" class:list={[is("/notes") && "active"]}>notes</a>
+      <a href="/archive" class:list={[is("/archive") && "active"]}>archive</a>
+      <a href="/about" class:list={[is("/about") && "active"]}>about</a>
+    </nav>
+  </div>
 </header>
 
 <style>
-  .site-header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    max-width: var(--wide-width);
-    margin: 0 auto;
-    padding: 0.9rem 1.25rem 0.7rem;
+  header {
+    padding: 1.1rem 1.25rem 0.8rem;
     border-bottom: 1px solid var(--rule);
-    font-family: var(--font-ui);
+    margin-bottom: 1.5rem;
   }
-  .brand {
-    font-family: var(--font-body);
+  .wrap {
+    max-width: var(--content);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .name {
     font-weight: 700;
-    font-size: 1rem;
     color: var(--fg);
     text-decoration: none;
+    font-size: 1rem;
   }
-  nav {
-    display: flex;
-    align-items: baseline;
-    gap: 1.1rem;
-    font-size: 0.82rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-  nav a {
-    color: var(--fg-muted);
-    text-decoration: none;
-  }
-  nav a:hover { color: var(--fg); }
-  nav a.active { color: var(--fg); }
-  #theme-toggle {
-    background: none;
-    border: none;
-    color: var(--fg-muted);
-    cursor: pointer;
-    padding: 0 0 0 0.25rem;
-    font-size: 0.95rem;
-    line-height: 1;
-  }
-  #theme-toggle:hover { color: var(--accent); }
-  @media (max-width: 600px) {
-    .site-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; padding-bottom: 0.5rem; }
-    nav { gap: 0.8rem; flex-wrap: wrap; }
+  nav { display: flex; gap: 0.9rem; font-size: 0.92rem; }
+  nav a { color: var(--fg-muted); text-decoration: none; }
+  nav a:hover, nav a.active { color: var(--fg); text-decoration: underline; }
+  @media (max-width: 540px) {
+    .wrap { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
   }
 </style>
-
-<script is:inline>
-  (function () {
-    const stored = localStorage.getItem("theme");
-    if (stored) document.documentElement.setAttribute("data-theme", stored);
-    const btn = document.getElementById("theme-toggle");
-    btn?.addEventListener("click", () => {
-      const cur = document.documentElement.getAttribute("data-theme");
-      const next = cur === "dark" ? "light" : "dark";
-      document.documentElement.setAttribute("data-theme", next);
-      localStorage.setItem("theme", next);
-    });
-  })();
-</script>

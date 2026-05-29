@@ -1,0 +1,38 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PostList from "../../components/PostList.astro";
+import { getCollection } from "astro:content";
+
+const items = (await getCollection("analysis", ({ data }) => data.status === "published"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((p) => ({
+    href: `/analysis/${p.slug}`,
+    title: p.data.title,
+    date: p.data.date,
+    category: p.data.category,
+    description: p.data.description,
+  }));
+---
+
+<Layout title="Analysis · Deep Hayer">
+  <h1>Analysis</h1>
+  <p class="dim">Structured writing on sports models, commercial real estate, Austin M&amp;A, finance, and data work.</p>
+  <p class="cats">
+    <a href="/analysis/sports">sports</a>
+    <span class="sep">·</span>
+    <a href="/analysis/cre">cre</a>
+    <span class="sep">·</span>
+    <a href="/analysis/ma">m&amp;a</a>
+    <span class="sep">·</span>
+    <a href="/analysis/finance">finance</a>
+    <span class="sep">·</span>
+    <a href="/analysis/data">data</a>
+  </p>
+  {items.length > 0 ? <PostList items={items} /> : <p class="dim">Nothing yet.</p>}
+</Layout>
+
+<style>
+  .dim { color: var(--fg-muted); }
+  .cats { font-size: 0.95rem; margin: 0 0 1.5rem; }
+  .sep { color: var(--fg-faint); margin: 0 0.2em; }
+</style>

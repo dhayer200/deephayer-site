@@ -1,0 +1,24 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PostList from "../../components/PostList.astro";
+import { getCollection } from "astro:content";
+
+const items = (await getCollection("essays", ({ data }) => data.status === "published"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((p) => ({
+    href: `/essays/${p.slug}`,
+    title: p.data.title,
+    date: p.data.date,
+    description: p.data.description,
+  }));
+---
+
+<Layout title="Essays · Deep Hayer">
+  <h1>Essays</h1>
+  <p class="dim">After Montaigne. Exploratory writing on philosophy, math, aesthetics, and the rest.</p>
+  {items.length > 0 ? <PostList items={items} /> : <p class="dim">Nothing yet.</p>}
+</Layout>
+
+<style>
+  .dim { color: var(--fg-muted); }
+</style>

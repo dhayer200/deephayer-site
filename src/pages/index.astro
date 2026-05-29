@@ -1,81 +1,102 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import ProjectList from "../components/ProjectList.astro";
 import { getCollection } from "astro:content";
 
-const projects = (await getCollection("projects")).sort(
-  (a, b) => a.data.order - b.data.order,
-);
-const projectItems = projects.map((p) => ({
-  slug: p.slug,
-  title: p.data.title,
-  summary: p.data.summary,
-  year: p.data.year,
-  status: p.data.status,
-  tags: p.data.tags,
-}));
+const recent = (await getCollection("essays", ({ data }) => data.status === "published"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
 
-const writing = (await getCollection("writing", ({ data }) => !data.draft))
-  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const recentAnalysis = (
+  await getCollection("analysis", ({ data }) => data.status === "published")
+)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 4);
+
+const projects = (await getCollection("projects"))
+  .filter((p) => p.data.status === "building")
+  .sort((a, b) => a.data.order - b.data.order);
 
 const fmt = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  d.toISOString().slice(0, 10);
 ---
 
 <Layout>
-  <article class="prose">
-    <h1 class="prose-title">Deep Hayer</h1>
-    <p class="lede">
-      Applied math and business student in Austin. I build things and write
-      about what I learn — markets, models, and the people behind the deals.
-    </p>
+  <p class="intro">
+    Applied math and business student in Austin. I write here about markets,
+    models, philosophy, and the deals I watch.
+  </p>
 
-    <h2>Projects</h2>
-    <ProjectList items={projectItems} />
+  <section>
+    <h2>Currently</h2>
+    <ul>
+      <li>Reading Montaigne, Tufte, Mandelbrot.</li>
+      <li>Watching Austin M&amp;A in CRE and family-office land.</li>
+      <li>Building <a href="/projects/chalkiq">chalkIQ</a>, <a href="/projects/compiq">compIQ</a>, <a href="/projects/admittr">admittr</a>.</li>
+    </ul>
+  </section>
 
-    <h2>Essais</h2>
-    {writing.length > 0 ? (
-      <ul class="essais">
-        {writing.map((w) => (
+  <section>
+    <h2>Recent essays</h2>
+    {recent.length > 0 ? (
+      <ul class="post-list">
+        {recent.map((p) => (
           <li>
-            <span class="date">{fmt(w.data.date)}</span>
-            <a href={`/essais/${w.slug}`}>{w.data.title}</a>
-            {w.data.summary && <span class="excerpt"> — {w.data.summary}</span>}
+            <time>{fmt(p.data.date)}</time>
+            <a href={`/essays/${p.slug}`}>{p.data.title}</a>
           </li>
         ))}
       </ul>
-    ) : (
-      <p class="empty"><em>Nothing published yet. Soon.</em></p>
-    )}
+    ) : <p class="dim">Nothing yet.</p>}
+  </section>
 
+  <section>
+    <h2>Recent analysis</h2>
+    {recentAnalysis.length > 0 ? (
+      <ul class="post-list">
+        {recentAnalysis.map((p) => (
+          <li>
+            <time>{fmt(p.data.date)}</time>
+            <span class="cat">{p.data.category}</span>
+            <a href={`/analysis/${p.slug}`}>{p.data.title}</a>
+          </li>
+        ))}
+      </ul>
+    ) : <p class="dim">Nothing yet.</p>}
+  </section>
+
+  <section>
+    <h2>Active projects</h2>
+    <ul class="post-list">
+      {projects.map((p) => (
+        <li>
+          <a href={`/projects/${p.slug}`}>{p.data.title}</a>
+          <span class="dim"> — {p.data.summary}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
     <h2>Elsewhere</h2>
     <p>
-      <a href="mailto:deephayer940@gmail.com">Email</a>,
-      <a href="https://github.com/dhayer200">GitHub</a>,
-      <a href="https://www.linkedin.com/in/deep-hayer-19ba8b366">LinkedIn</a>,
-      <a href="/graph">the graph</a>.
+      <a href="mailto:deephayer940@gmail.com">email</a>,
+      <a href="https://github.com/dhayer200">github</a>,
+      <a href="https://www.linkedin.com/in/deep-hayer-19ba8b366">linkedin</a>.
     </p>
-  </article>
+  </section>
 </Layout>
 
 <style>
-  .essais { list-style: none; padding: 0; margin: 0; }
-  .essais li {
-    padding: 0.3rem 0;
-    border-bottom: 1px dotted var(--rule);
-    font-size: 0.98rem;
-  }
-  .essais li:last-child { border-bottom: none; }
-  .essais .date {
-    font-family: var(--font-ui);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+  .intro { color: var(--fg-muted); margin: 0 0 1.5rem; }
+  .post-list { list-style: none; padding: 0; margin: 0; }
+  .post-list li { padding: 0.2em 0; }
+  .post-list time, .post-list .cat {
+    display: inline-block;
+    width: 6.2rem;
     color: var(--fg-muted);
-    margin-right: 0.6em;
+    font-size: 0.88rem;
   }
-  .essais a { color: var(--fg); text-decoration: none; font-weight: 600; }
-  .essais a:hover { color: var(--accent); }
-  .essais .excerpt { color: var(--fg-muted); }
-  .empty { color: var(--fg-muted); }
+  .post-list .cat { width: auto; margin-right: 0.6rem; font-style: italic; }
+  .dim { color: var(--fg-muted); }
+  section { margin-bottom: 1.5rem; }
 </style>

@@ -1,0 +1,46 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import PostList from "../../../components/PostList.astro";
+import { getCollection } from "astro:content";
+
+const CATEGORIES = ["sports", "cre", "ma", "finance", "data"] as const;
+type Category = (typeof CATEGORIES)[number];
+
+const LABELS: Record<Category, string> = {
+  sports: "Sports",
+  cre: "Commercial real estate",
+  ma: "Austin M&A",
+  finance: "Finance",
+  data: "Data",
+};
+
+export async function getStaticPaths() {
+  return ["sports", "cre", "ma", "finance", "data"].map((c) => ({ params: { category: c } }));
+}
+
+const { category } = Astro.params;
+const cat = category as Category;
+
+const items = (
+  await getCollection("analysis", ({ data }) => data.status === "published" && data.category === cat)
+)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((p) => ({
+    href: `/analysis/${p.slug}`,
+    title: p.data.title,
+    date: p.data.date,
+    description: p.data.description,
+  }));
+---
+
+<Layout title={`${LABELS[cat]} · Analysis · Deep Hayer`}>
+  <p class="trail"><a href="/analysis">analysis</a></p>
+  <h1>{LABELS[cat]}</h1>
+  {items.length > 0 ? <PostList items={items} /> : <p class="dim">Nothing yet.</p>}
+</Layout>
+
+<style>
+  .trail { color: var(--fg-muted); font-size: 0.85rem; margin: 0 0 0.3em; }
+  .trail a { color: var(--fg-muted); }
+  .dim { color: var(--fg-muted); }
+</style>

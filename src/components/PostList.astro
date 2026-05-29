@@ -1,0 +1,50 @@
+---
+interface Item {
+  href: string;
+  title: string;
+  date: Date;
+  category?: string;
+  description?: string;
+}
+interface Props { items: Item[] }
+const { items } = Astro.props;
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<ul class="post-list">
+  {items.map((i) => (
+    <li>
+      <time>{fmt(i.date)}</time>
+      {i.category && <span class="cat">{i.category}</span>}
+      <a href={i.href}>{i.title}</a>
+      {i.description && <div class="desc">{i.description}</div>}
+    </li>
+  ))}
+</ul>
+
+<style>
+  .post-list { list-style: none; padding: 0; margin: 0; }
+  .post-list li { padding: 0.35em 0; }
+  .post-list time {
+    display: inline-block;
+    width: 6.2rem;
+    color: var(--fg-muted);
+    font-size: 0.88rem;
+  }
+  .post-list .cat {
+    color: var(--fg-muted);
+    font-size: 0.88rem;
+    font-style: italic;
+    margin-right: 0.6rem;
+  }
+  .post-list .desc {
+    color: var(--fg-muted);
+    font-size: 0.92rem;
+    padding-left: 6.2rem;
+    margin-top: 0.1rem;
+  }
+  @media (max-width: 540px) {
+    .post-list time { display: block; width: auto; }
+    .post-list .desc { padding-left: 0; }
+  }
+</style>

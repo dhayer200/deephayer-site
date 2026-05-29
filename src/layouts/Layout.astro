@@ -2,19 +2,15 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import "../styles/global.css";
-import "../styles/typography.css";
-import "../styles/sidenotes.css";
 
 interface Props {
   title?: string;
   description?: string;
-  wide?: boolean;
 }
 
 const {
   title = "Deep Hayer",
-  description = "Applied math and business student in Austin. I build things and write about what I learn.",
-  wide = false,
+  description = "Personal site of Deep Hayer.",
 } = Astro.props;
 ---
 
@@ -26,12 +22,6 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,700&family=Source+Sans+Pro:wght@400;600&family=JetBrains+Mono:wght@400&display=swap"
-    />
     <script is:inline>
       (function () {
         const stored = localStorage.getItem("theme");
@@ -41,7 +31,7 @@ const {
   </head>
   <body>
     <Header />
-    <main class:list={[wide && "wide"]}>
+    <main>
       <slot />
     </main>
     <Footer />

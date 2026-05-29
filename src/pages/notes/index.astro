@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const items = (await getCollection("notes", ({ data }) => data.status === "published"))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
+---
+
+<Layout title="Notes · Deep Hayer">
+  <h1>Notes</h1>
+  <p class="dim">Fragments. Observations. Haiku. Things that do not deserve a longer treatment yet.</p>
+
+  {items.length > 0 ? (
+    <div class="notes">
+      {items.map((n) => (
+        <article class="note">
+          <div class="head">
+            <time>{fmt(n.data.date)}</time>
+            <span class="kind">{n.data.kind}</span>
+            {n.data.title && <a href={`/notes/${n.slug}`} class="title">{n.data.title}</a>}
+          </div>
+          <div class="body" set:html={n.body.split("\n\n").map((p) => `<p>${p}</p>`).join("")} />
+        </article>
+      ))}
+    </div>
+  ) : <p class="dim">Nothing yet.</p>}
+</Layout>
+
+<style>
+  .dim { color: var(--fg-muted); }
+  .notes { display: flex; flex-direction: column; gap: 1.5rem; }
+  .note {
+    border-bottom: 1px dotted var(--rule);
+    padding-bottom: 1.5rem;
+  }
+  .note:last-child { border-bottom: 0; }
+  .head { color: var(--fg-muted); font-size: 0.88rem; margin-bottom: 0.3rem; }
+  .kind { font-style: italic; margin: 0 0.5em; }
+  .title { color: var(--fg); text-decoration: none; }
+  .title:hover { text-decoration: underline; }
+  .body p { margin: 0 0 0.6em; }
+</style>

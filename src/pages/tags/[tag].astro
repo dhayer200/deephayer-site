@@ -3,96 +3,52 @@ import Layout from "../../layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const writing = await getCollection("writing", ({ data }) => !data.draft);
-  const projects = await getCollection("projects");
+  const e = await getCollection("essays", ({ data }) => data.status === "published");
+  const a = await getCollection("analysis", ({ data }) => data.status === "published");
+  const n = await getCollection("notes", ({ data }) => data.status === "published");
+  const p = await getCollection("projects");
   const tags = new Set<string>();
-  writing.forEach((w) => w.data.tags.forEach((t) => tags.add(t)));
-  projects.forEach((p) => p.data.tags.forEach((t) => tags.add(t)));
-  return Array.from(tags).map((tag) => ({ params: { tag }, props: { tag } }));
+  [...e, ...a, ...n, ...p].forEach((x) => x.data.tags.forEach((t) => tags.add(t)));
+  return [...tags].map((tag) => ({ params: { tag }, props: { tag } }));
 }
 
 const { tag } = Astro.props;
 
-const writing = (await getCollection("writing", ({ data }) =>
-  !data.draft && data.tags.includes(tag),
-)).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toISOString().slice(0, 10);
 
-const projects = (await getCollection("projects", ({ data }) =>
-  data.tags.includes(tag),
-)).sort((a, b) => a.data.order - b.data.order);
+const e = (await getCollection("essays", ({ data }) =>
+  data.status === "published" && data.tags.includes(tag),
+)).map((p) => ({ href: `/essays/${p.slug}`, title: p.data.title, date: p.data.date, sec: "essay" }));
 
-const fmt = (d: Date) =>
-  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+const a = (await getCollection("analysis", ({ data }) =>
+  data.status === "published" && data.tags.includes(tag),
+)).map((p) => ({ href: `/analysis/${p.slug}`, title: p.data.title, date: p.data.date, sec: `analysis · ${p.data.category}` }));
+
+const n = (await getCollection("notes", ({ data }) =>
+  data.status === "published" && data.tags.includes(tag),
+)).map((p) => ({ href: `/notes/${p.slug}`, title: p.data.title, date: p.data.date, sec: "note" }));
+
+const items = [...e, ...a, ...n].sort((x, y) => y.date.valueOf() - x.date.valueOf());
 ---
 
 <Layout title={`#${tag} · Deep Hayer`}>
-  <h1 class="page-title">#{tag}</h1>
-  <p class="lede">
-    {writing.length} essai{writing.length !== 1 && "s"}, {projects.length} project{projects.length !== 1 && "s"}.
-  </p>
-
-  {projects.length > 0 && (
-    <section>
-      <h2>Projects</h2>
-      <ul class="list">
-        {projects.map((p) => (
-          <li>
-            <a href={`/projects/${p.slug}`}>
-              <span class="title">{p.data.title}</span>
-              <span class="excerpt">{p.data.summary}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
-
-  {writing.length > 0 && (
-    <section>
-      <h2>Essais</h2>
-      <ul class="list">
-        {writing.map((w) => (
-          <li>
-            <a href={`/essais/${w.slug}`}>
-              <span class="date">{fmt(w.data.date)}</span>
-              <span class="title">{w.data.title}</span>
-              {w.data.summary && <span class="excerpt">{w.data.summary}</span>}
-            </a>
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
+  <h1>#{tag}</h1>
+  <p class="dim">{items.length} item{items.length !== 1 && "s"}.</p>
+  <ul class="list">
+    {items.map((i) => (
+      <li>
+        <time>{fmt(i.date)}</time>
+        <span class="sec">{i.sec}</span>
+        <a href={i.href}>{i.title}</a>
+      </li>
+    ))}
+  </ul>
 </Layout>
 
 <style>
-  .page-title { font-family: var(--font-ui); font-size: 2rem; margin: 1rem 0 0.5rem; }
-  .lede { color: var(--fg-muted); margin: 0 0 1.5rem; }
-  h2 {
-    font-family: var(--font-ui);
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--fg-muted);
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 0.5rem;
-    margin-top: 2.5rem;
-  }
-  .list { list-style: none; padding: 0; margin: 0; }
-  .list li { border-bottom: 1px solid var(--rule); }
-  .list a {
-    display: grid;
-    grid-template-columns: 7rem 1fr;
-    gap: 1rem;
-    padding: 1rem 0;
-    color: var(--fg);
-    text-decoration: none;
-  }
-  .date { font-family: var(--font-ui); font-size: 0.85rem; color: var(--fg-muted); }
-  .title { font-weight: 500; }
-  .excerpt { grid-column: 2; font-size: 0.92rem; color: var(--fg-muted); margin-top: 0.25rem; }
-  .list a:hover .title { color: var(--accent); }
-  @media (max-width: 600px) {
-    .list a { grid-template-columns: 1fr; gap: 0.15rem; }
-  }
+  .dim { color: var(--fg-muted); }
+  .list { list-style: none; padding: 0; }
+  .list li { padding: 0.2em 0; }
+  .list time { display: inline-block; width: 6.2rem; color: var(--fg-muted); font-size: 0.88rem; }
+  .list .sec { color: var(--fg-muted); font-size: 0.88rem; font-style: italic; margin-right: 0.6rem; }
 </style>

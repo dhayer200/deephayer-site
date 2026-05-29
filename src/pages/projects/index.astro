@@ -1,28 +1,40 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import ProjectList from "../../components/ProjectList.astro";
 import { getCollection } from "astro:content";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => a.data.order - b.data.order,
 );
-const items = projects.map((p) => ({
-  slug: p.slug,
-  title: p.data.title,
-  summary: p.data.summary,
-  year: p.data.year,
-  status: p.data.status,
-  tags: p.data.tags,
-}));
 ---
 
 <Layout title="Projects · Deep Hayer">
-  <article class="prose">
-    <h1 class="page-title">Projects</h1>
-    <p class="lede">
-      What I'm building. Each page goes deeper than the GitHub README — problem,
-      approach, what I learned, and the paper when one exists.
-    </p>
-    <ProjectList items={items} />
-  </article>
+  <h1>Projects</h1>
+  <p class="dim">What I am building. Each page goes deeper than the GitHub README.</p>
+
+  <dl class="list">
+    {projects.map((p) => (
+      <>
+        <dt>
+          <a href={`/projects/${p.slug}`}>{p.data.title}</a>
+          <span class="meta">{p.data.year} — {p.data.status}</span>
+        </dt>
+        <dd>{p.data.summary}</dd>
+      </>
+    ))}
+  </dl>
 </Layout>
+
+<style>
+  .dim { color: var(--fg-muted); }
+  .list { margin: 0; }
+  .list dt {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .list dt a { font-weight: 700; color: var(--fg); text-decoration: none; }
+  .list dt a:hover { text-decoration: underline; }
+  .list dt .meta { color: var(--fg-muted); font-size: 0.88rem; white-space: nowrap; }
+  .list dd { margin: 0.2em 0 0; color: var(--fg-muted); font-size: 0.95rem; }
+</style>
