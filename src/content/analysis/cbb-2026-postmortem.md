@@ -12,9 +12,9 @@ The 2025-26 college basketball season ended in April. Here is what the chalkIQ m
 
 ## Headline numbers
 
-- Calibration: 0.78 Brier score on closing-line implied probabilities, 0.74 on chalkIQ probabilities. Modest beat, well inside the noise band.
-- CLV: +1.8 percent against opening, -0.3 percent against closing. The model finds the early line but does not beat the market by close.
-- ROI to flat staking: +2.1 percent across 1,840 plays. Within the variance band of zero.
+- Calibration: Brier score 0.189 against actual outcomes (coin-flip baseline 0.250), log loss 0.556 (baseline 0.693). Meaningful improvement over random, evaluated across 1,672 games.
+- CLV: mean -1.24% against closing lines, 44.9% beat-close rate across 1,559 tracked games. The model does not beat the closing line on average, consistent with market efficiency.
+- Backtest ROI: +43.5% flat staking across 1,076 bets, 75.2% win rate. Walk-forward, in-sample — the live number will be lower.
 
 ## What the model got right
 
