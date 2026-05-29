@@ -27,6 +27,6 @@ Calibration is the only honest defense. A model that says "60%" needs to be righ
 
 ## What this means for the work
 
-Most of the marginal effort I have put into [chalkIQ](/projects/chalkiq) over the last year has gone into calibration, not new features. New features look like progress. Calibration looks like cleaning. But calibration is the work. Every time I add a feature without re-calibrating, I am painting over a problem.
+Most of the marginal effort I have put into the sports model over the last year has gone into calibration, not new features. New features look like progress. Calibration looks like cleaning. But calibration is the work. Every time I add a feature without re-calibrating, I am painting over a problem.
 
 The rule I now follow: the next thing I add has to either improve the calibration curve on the existing model or be a feature whose signal survives a fresh calibration. Everything else is a story I am telling myself.

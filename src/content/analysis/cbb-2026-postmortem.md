@@ -1,14 +1,14 @@
 ---
-title: chalkIQ college basketball — 2025-26 postmortem
+title: College basketball — 2025-26 model postmortem
 date: 2026-05-10
 description: What the model got right, what it got wrong, and what I am changing for next season.
-tags: [chalkiq, sports, postmortem]
+tags: [sports, modeling, postmortem]
 category: sports
 project: chalkiq
 status: published
 ---
 
-The 2025-26 college basketball season ended in April. Here is what the chalkIQ model did and what I am rebuilding before next November.
+The 2025-26 college basketball season ended in April. Here is what my model did and what I am rebuilding before next November.
 
 ## Headline numbers
 
@@ -18,7 +18,7 @@ The 2025-26 college basketball season ended in April. Here is what the chalkIQ m
 
 ## What the model got right
 
-The early-season conference play period. Schools where the roster turnover is high (transfer portal heavy) were systematically mispriced for the first two weeks of conference play. chalkIQ caught most of that.
+The early-season conference play period. Schools where the roster turnover is high (transfer portal heavy) were systematically mispriced for the first two weeks of conference play. The model caught most of that.
 
 Late-game close-and-cover situations were also a small but real edge. The market underprices defensive teams that play slow in close games; the model picks them up.
 

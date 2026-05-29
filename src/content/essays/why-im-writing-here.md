@@ -19,7 +19,7 @@ The selfish reason is that I write better when there is a possibility of being r
 
 Three kinds of writing. Essays are exploratory and personal, in the Montaigne sense. Analysis is structured writing on sports, commercial real estate, M&A, and finance — I plan a daily or weekly cadence on Austin M&A specifically. Notes are fragments: haiku, observations, things that are not ready to be more.
 
-The site is also the public face of the work in [chalkIQ](/projects/chalkiq), [compIQ](/projects/compiq), [admittr](/projects/admittr), [hoi4](/projects/hoi4), and [redflag](/projects/redflag). When a project moves, the relevant analysis or essay will live alongside it.
+The site is also the public face of the work in progress on the sports model, the comps tool, the admissions model, the combat-model paper, and the brand transparency platform. When a project moves, the relevant analysis or essay will live alongside it.
 
 If you found this through a cold email I sent you, the page that goes with it is [/about](/about), and my contact info is at the bottom of every page.
 
