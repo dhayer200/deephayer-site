@@ -13,6 +13,7 @@ const is = (p: string) => pathname === p || (p !== "/" && pathname.startsWith(p)
       <a href="/notes" class:list={[is("/notes") && "active"]}>notes</a>
       <a href="/archive" class:list={[is("/archive") && "active"]}>archive</a>
       <a href="/about" class:list={[is("/about") && "active"]}>about</a>
+      <button id="theme-toggle" type="button" aria-label="Toggle light/dark">◐</button>
     </nav>
   </div>
 </header>
@@ -38,10 +39,40 @@ const is = (p: string) => pathname === p || (p !== "/" && pathname.startsWith(p)
     text-decoration: none;
     font-size: 1rem;
   }
-  nav { display: flex; gap: 0.9rem; font-size: 0.92rem; }
+  nav { display: flex; gap: 0.9rem; font-size: 0.95rem; align-items: baseline; }
   nav a { color: var(--fg-muted); text-decoration: none; }
   nav a:hover, nav a.active { color: var(--fg); text-decoration: underline; }
+  #theme-toggle {
+    background: none;
+    border: none;
+    color: var(--fg-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    line-height: 1;
+    font-family: inherit;
+  }
+  #theme-toggle:hover { color: var(--fg); }
   @media (max-width: 540px) {
     .wrap { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    const get = () =>
+      localStorage.getItem("theme") ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const apply = (t) => document.documentElement.setAttribute("data-theme", t);
+    apply(get());
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("theme-toggle");
+      btn?.addEventListener("click", () => {
+        const cur = document.documentElement.getAttribute("data-theme") || "light";
+        const next = cur === "dark" ? "light" : "dark";
+        localStorage.setItem("theme", next);
+        apply(next);
+      });
+    });
+  })();
+</script>

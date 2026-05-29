@@ -1,20 +1,22 @@
 :root {
-  --bg: #fdfdfb;
-  --fg: #1a1a1a;
-  --fg-muted: #666;
-  --fg-faint: #999;
-  --rule: #e2e2dd;
-  --link: #6b1a1a;
+  --bg: #ffffff;
+  --fg: #111111;
+  --fg-muted: #555555;
+  --fg-faint: #999999;
+  --rule: #dddddd;
+  --link: #0050cc;
+  --link-visited: #5a3ea8;
   --content: 38rem;
 }
 
 :root[data-theme="dark"] {
-  --bg: #1a1a1a;
-  --fg: #d8d8d4;
-  --fg-muted: #888;
-  --fg-faint: #555;
-  --rule: #2c2c2a;
-  --link: #b88;
+  --bg: #111111;
+  --fg: #e8e8e8;
+  --fg-muted: #888888;
+  --fg-faint: #555555;
+  --rule: #2a2a2a;
+  --link: #5aa0ff;
+  --link-visited: #b48cff;
 }
 
 * { box-sizing: border-box; }
@@ -22,9 +24,9 @@
 html {
   background: var(--bg);
   color: var(--fg);
-  font-family: Georgia, "Iowan Old Style", "Charter", "Source Serif Pro", serif;
-  font-size: 17px;
-  line-height: 1.55;
+  font-family: "Times New Roman", Times, "Liberation Serif", serif;
+  font-size: 18px;
+  line-height: 1.5;
   text-rendering: optimizeLegibility;
 }
 
@@ -54,12 +56,12 @@ h1, h2, h3, h4 {
   margin: 1.8em 0 0.5em;
 }
 
-h1 { font-size: 1.4rem; margin-top: 0.4em; }
-h2 { font-size: 1.1rem; margin-top: 2em; }
-h3 { font-size: 1rem; font-style: italic; font-weight: 400; }
+h1 { font-size: 1.5rem; margin-top: 0.4em; }
+h2 { font-size: 1.15rem; margin-top: 2em; }
+h3 { font-size: 1.05rem; font-style: italic; font-weight: 400; }
 
 a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
-a:visited { color: var(--link); }
+a:visited { color: var(--link-visited); }
 
 code {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;

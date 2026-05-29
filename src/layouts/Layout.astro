@@ -25,7 +25,8 @@ const {
     <script is:inline>
       (function () {
         const stored = localStorage.getItem("theme");
-        if (stored) document.documentElement.setAttribute("data-theme", stored);
+        const t = stored || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
       })();
     </script>
   </head>
