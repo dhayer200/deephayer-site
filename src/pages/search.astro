@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Search · Deep Hayer">
+  <h1>Search</h1>
+  <div id="search"></div>
+
+  <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script src="/pagefind/pagefind-ui.js" is:inline></script>
+  <script is:inline>
+    window.addEventListener("DOMContentLoaded", () => {
+      new PagefindUI({ element: "#search", showSubResults: true, showImages: false });
+    });
+  </script>
+
+  <style is:global>
+    .pagefind-ui { --pagefind-ui-primary: #0050cc; --pagefind-ui-font: inherit; }
+    .pagefind-ui__result-title a { color: var(--link); }
+  </style>
+</Layout>

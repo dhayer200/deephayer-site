@@ -13,6 +13,7 @@ const is = (p: string) => pathname === p || (p !== "/" && pathname.startsWith(p)
       <a href="/notes" class:list={[is("/notes") && "active"]}>notes</a>
       <a href="/archive" class:list={[is("/archive") && "active"]}>archive</a>
       <a href="/about" class:list={[is("/about") && "active"]}>about</a>
+      <a href="/search" class:list={[is("/search") && "active"]}>search</a>
       <button id="theme-toggle" type="button" aria-label="Toggle light/dark">◐</button>
     </nav>
   </div>

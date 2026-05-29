@@ -5,12 +5,18 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
+    "build": "astro build && pagefind --site dist",
+    "preview": "astro preview",
+    "new": "node scripts/new.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.0.0",
+    "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.2.0",
     "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "pagefind": "^1.5.2",
+    "unist-util-visit": "^5.1.0"
   }
 }

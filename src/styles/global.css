@@ -62,6 +62,7 @@ h3 { font-size: 1.05rem; font-style: italic; font-weight: 400; }
 
 a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
 a:visited { color: var(--link-visited); }
+.wikilink-broken { color: #999; text-decoration: line-through; cursor: help; }
 
 code {
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
