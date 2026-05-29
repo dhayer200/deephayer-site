@@ -24,12 +24,14 @@ const backlinks = (linkGraph.backlinks?.[`project/${project.slug}`] ?? []) as {
   <article class="prose">
     <h1 class="prose-title">{title}</h1>
     <div class="meta">
-      <span>{year}</span> · <span class={`status status-${status}`}>{status}</span>
+      <span>{year}</span>
+      <span class="sep">·</span>
+      <span class={`status status-${status}`}>{status}</span>
       {tags.length > 0 && (
         <>
-          {" · "}
+          <span class="sep">·</span>
           {tags.map((t) => (
-            <a class="tag-chip" href={`/tags/${t}`}>{t}</a>
+            <a class="tag-chip" href={`/tags/${t}`}>#{t}</a>
           ))}
         </>
       )}
@@ -56,18 +58,23 @@ const backlinks = (linkGraph.backlinks?.[`project/${project.slug}`] ?? []) as {
 </Layout>
 
 <style>
-  .summary { font-size: 1.1rem; color: var(--fg-muted); }
-  .links { font-family: var(--font-ui); font-size: 0.95rem; }
-  .links a { margin-right: 1rem; }
+  .summary { font-size: 1.05rem; color: var(--fg-muted); }
+  .links { font-family: var(--font-ui); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; }
+  .links a { margin-right: 1.2rem; }
   .stack {
     font-family: var(--font-ui);
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: var(--fg-muted);
-    border-top: 1px solid var(--rule);
-    border-bottom: 1px solid var(--rule);
-    padding: 0.5rem 0;
+    border-top: 1px dotted var(--rule);
+    border-bottom: 1px dotted var(--rule);
+    padding: 0.4rem 0;
   }
-  .stack-label { color: var(--fg); margin-right: 0.4em; }
-  .status { font-family: var(--font-ui); font-size: 0.85rem; text-transform: lowercase; }
+  .stack-label {
+    color: var(--fg);
+    margin-right: 0.4em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+  }
   .status-shipped { color: var(--accent); }
 </style>

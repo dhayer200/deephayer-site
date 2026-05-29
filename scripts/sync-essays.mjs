@@ -27,6 +27,7 @@ function walk(dir) {
   if (!existsSync(dir)) return [];
   const out = [];
   for (const name of readdirSync(dir)) {
+    if (name.startsWith("_") || name.startsWith(".")) continue;
     const full = join(dir, name);
     if (statSync(full).isDirectory()) {
       out.push(...walk(full));

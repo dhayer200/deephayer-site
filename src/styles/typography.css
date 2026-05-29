@@ -1,80 +1,56 @@
-@font-face {
-  font-family: "Charter";
-  src: local("Charter"), local("CharterBT-Roman");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Charter";
-  src: local("Charter-Italic"), local("CharterBT-Italic");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Charter";
-  src: local("Charter-Bold"), local("CharterBT-Bold");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-.prose p {
-  hyphens: auto;
-  -webkit-hyphens: auto;
-}
-
-.prose p:first-of-type {
-  margin-top: 0;
-}
-
-.prose a[href^="/"]::after,
-.prose a[href^="#"]::after {
-  content: "";
-}
-
-.prose a[href^="http"]::after {
-  content: "";
-}
+.prose p:first-of-type { margin-top: 0; }
 
 .prose .meta {
   font-family: var(--font-ui);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   color: var(--fg-muted);
-  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0.5rem 0 1.6rem;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.8rem;
 }
 
-.prose .meta a {
-  color: var(--fg-muted);
+.prose .meta a { color: var(--fg-muted); text-decoration: none; }
+.prose .meta a:hover { color: var(--accent); }
+
+.prose .meta .sep {
+  margin: 0 0.4em;
+  color: var(--fg-faint);
 }
 
 .prose-title {
-  font-family: var(--font-ui);
-  font-size: 2.25rem;
+  font-family: var(--font-body);
+  font-size: 1.9rem;
   font-weight: 700;
   line-height: 1.15;
-  margin: 0 0 0.4em;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.3em;
 }
 
 .tag-chip {
-  display: inline-block;
   font-family: var(--font-ui);
-  font-size: 0.75rem;
-  text-transform: lowercase;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--rule);
-  border-radius: 999px;
-  padding: 0.15em 0.7em;
-  margin-right: 0.4em;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
   color: var(--fg-muted);
   text-decoration: none;
+  margin-right: 0.5em;
 }
 
-.tag-chip:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  text-decoration: none;
+.tag-chip:hover { color: var(--accent); text-decoration: none; }
+
+.lede {
+  color: var(--fg-muted);
+  font-style: italic;
+  max-width: 36rem;
+  margin: 0 0 1.5rem;
+}
+
+.page-title {
+  font-family: var(--font-body);
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.4em;
+  letter-spacing: -0.005em;
 }

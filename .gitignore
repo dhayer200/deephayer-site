@@ -5,3 +5,4 @@ dist/
 src/content/writing/
 src/data/link-graph.json
 .env
+.vercel

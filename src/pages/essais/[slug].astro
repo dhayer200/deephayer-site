@@ -33,47 +33,53 @@ const next = idx > 0 ? all[idx - 1] : null;
 
 <Layout title={`${title} · Essais`} description={summary} wide>
   <div class="layout">
+    <aside class="toc-aside">
+      <Toc headings={headings} />
+    </aside>
     <article class="prose essai-body">
       <h1 class="prose-title">{title}</h1>
       <div class="meta">
         <time>{fmt(date)}</time>
         {tags.length > 0 && (
           <>
-            {" · "}
+            <span class="sep">·</span>
             {tags.map((t) => (
               <a class="tag-chip" href={`/tags/${t}`}>#{t}</a>
             ))}
+          </>
+        )}
+        {backlinks.length > 0 && (
+          <>
+            <span class="sep">·</span>
+            <span>{backlinks.length} backlink{backlinks.length !== 1 && "s"}</span>
           </>
         )}
       </div>
       <Content />
       <Backlinks items={backlinks} />
       <nav class="prev-next">
-        {prev && (
+        {prev ? (
           <a href={`/essais/${prev.slug}`} class="prev">
-            <span>← Previous</span>
+            <span class="label">← Previous</span>
             <span class="t">{prev.data.title}</span>
           </a>
-        )}
-        {next && (
+        ) : <span />}
+        {next ? (
           <a href={`/essais/${next.slug}`} class="next">
-            <span>Next →</span>
+            <span class="label">Next →</span>
             <span class="t">{next.data.title}</span>
           </a>
-        )}
+        ) : <span />}
       </nav>
     </article>
-    <aside class="toc-aside">
-      <Toc headings={headings} />
-    </aside>
   </div>
 </Layout>
 
 <style>
   .layout {
     display: grid;
-    grid-template-columns: minmax(0, var(--content-width)) 14rem;
-    gap: 3rem;
+    grid-template-columns: 14rem minmax(0, var(--content-width));
+    gap: 2.5rem;
     align-items: start;
   }
   @media (max-width: 1099px) {
@@ -85,10 +91,10 @@ const next = idx > 0 ? all[idx - 1] : null;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
     margin-top: 3rem;
-    padding-top: 1.5rem;
+    padding-top: 1rem;
     border-top: 1px solid var(--rule);
     font-family: var(--font-ui);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
   .prev-next a {
     display: flex;
@@ -96,7 +102,12 @@ const next = idx > 0 ? all[idx - 1] : null;
     text-decoration: none;
     color: var(--fg-muted);
   }
-  .prev-next .next { text-align: right; }
-  .prev-next .t { color: var(--fg); margin-top: 0.2rem; }
+  .prev-next .label {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.72rem;
+  }
+  .prev-next .next { text-align: right; align-items: flex-end; }
+  .prev-next .t { color: var(--fg); margin-top: 0.2rem; font-family: var(--font-body); }
   .prev-next a:hover .t { color: var(--accent); }
 </style>

@@ -5,18 +5,14 @@ const isActive = (path: string) =>
 ---
 
 <header class="site-header">
-  <a class="brand" href="/">
-    Deep Hayer<span class="dot">.</span>
-  </a>
+  <a class="brand" href="/">Deep Hayer</a>
   <nav>
     <a href="/projects" class:list={[isActive("/projects") && "active"]}>Projects</a>
     <a href="/essais" class:list={[isActive("/essais") && "active"]}>Essais</a>
     <a href="/now" class:list={[isActive("/now") && "active"]}>Now</a>
     <a href="/about" class:list={[isActive("/about") && "active"]}>About</a>
-    <a href="/graph" class:list={[isActive("/graph") && "active"]} title="Knowledge graph">Graph</a>
-    <button id="theme-toggle" aria-label="Toggle theme" type="button">
-      <span class="theme-icon">●</span>
-    </button>
+    <a href="/graph" class:list={[isActive("/graph") && "active"]}>Graph</a>
+    <button id="theme-toggle" aria-label="Toggle theme" type="button">◐</button>
   </nav>
 </header>
 
@@ -27,23 +23,24 @@ const isActive = (path: string) =>
     justify-content: space-between;
     max-width: var(--wide-width);
     margin: 0 auto;
-    padding: 1.25rem 1.25rem 1rem;
+    padding: 0.9rem 1.25rem 0.7rem;
     border-bottom: 1px solid var(--rule);
     font-family: var(--font-ui);
   }
   .brand {
+    font-family: var(--font-body);
     font-weight: 700;
-    font-size: 1.05rem;
+    font-size: 1rem;
     color: var(--fg);
     text-decoration: none;
-    letter-spacing: -0.01em;
   }
-  .dot { color: var(--accent); }
   nav {
     display: flex;
     align-items: baseline;
-    gap: 1.25rem;
-    font-size: 0.92rem;
+    gap: 1.1rem;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
   nav a {
     color: var(--fg-muted);
@@ -57,12 +54,13 @@ const isActive = (path: string) =>
     color: var(--fg-muted);
     cursor: pointer;
     padding: 0 0 0 0.25rem;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1;
   }
   #theme-toggle:hover { color: var(--accent); }
   @media (max-width: 600px) {
-    .site-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    nav { gap: 0.9rem; flex-wrap: wrap; }
+    .site-header { flex-direction: column; align-items: flex-start; gap: 0.4rem; padding-bottom: 0.5rem; }
+    nav { gap: 0.8rem; flex-wrap: wrap; }
   }
 </style>
 

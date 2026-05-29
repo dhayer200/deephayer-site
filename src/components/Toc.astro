@@ -10,7 +10,7 @@ const filtered = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
 ---
 
 {filtered.length > 0 && (
-  <aside class="toc">
+  <nav class="toc">
     <div class="toc-label">Contents</div>
     <ol>
       {filtered.map((h) => (
@@ -19,32 +19,27 @@ const filtered = headings.filter((h) => h.depth >= 2 && h.depth <= 3);
         </li>
       ))}
     </ol>
-  </aside>
+  </nav>
 )}
 
 <style>
   .toc {
     font-family: var(--font-ui);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
   }
   .toc-label {
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    font-size: 0.68rem;
     color: var(--fg-muted);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.4rem;
   }
-  .toc ol {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  .toc ol { list-style: none; padding: 0; margin: 0; }
   .toc li { padding: 0.15rem 0; }
-  .toc li.depth-3 { padding-left: 0.9rem; font-size: 0.78rem; }
-  .toc a {
-    color: var(--fg-muted);
-    text-decoration: none;
-  }
+  .toc li.depth-3 { padding-left: 0.9rem; font-size: 0.74rem; }
+  .toc a { color: var(--fg-muted); text-decoration: none; }
   .toc a:hover { color: var(--accent); }
 
   @media (min-width: 1100px) {
