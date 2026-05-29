@@ -1,0 +1,81 @@
+---
+const { pathname } = Astro.url;
+const isActive = (path: string) =>
+  pathname === path || (path !== "/" && pathname.startsWith(path));
+---
+
+<header class="site-header">
+  <a class="brand" href="/">
+    Deep Hayer<span class="dot">.</span>
+  </a>
+  <nav>
+    <a href="/projects" class:list={[isActive("/projects") && "active"]}>Projects</a>
+    <a href="/essais" class:list={[isActive("/essais") && "active"]}>Essais</a>
+    <a href="/now" class:list={[isActive("/now") && "active"]}>Now</a>
+    <a href="/about" class:list={[isActive("/about") && "active"]}>About</a>
+    <a href="/graph" class:list={[isActive("/graph") && "active"]} title="Knowledge graph">Graph</a>
+    <button id="theme-toggle" aria-label="Toggle theme" type="button">
+      <span class="theme-icon">●</span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    max-width: var(--wide-width);
+    margin: 0 auto;
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-ui);
+  }
+  .brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--fg);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .dot { color: var(--accent); }
+  nav {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+    font-size: 0.92rem;
+  }
+  nav a {
+    color: var(--fg-muted);
+    text-decoration: none;
+  }
+  nav a:hover { color: var(--fg); }
+  nav a.active { color: var(--fg); }
+  #theme-toggle {
+    background: none;
+    border: none;
+    color: var(--fg-muted);
+    cursor: pointer;
+    padding: 0 0 0 0.25rem;
+    font-size: 0.9rem;
+  }
+  #theme-toggle:hover { color: var(--accent); }
+  @media (max-width: 600px) {
+    .site-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    nav { gap: 0.9rem; flex-wrap: wrap; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const stored = localStorage.getItem("theme");
+    if (stored) document.documentElement.setAttribute("data-theme", stored);
+    const btn = document.getElementById("theme-toggle");
+    btn?.addEventListener("click", () => {
+      const cur = document.documentElement.getAttribute("data-theme");
+      const next = cur === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      localStorage.setItem("theme", next);
+    });
+  })();
+</script>

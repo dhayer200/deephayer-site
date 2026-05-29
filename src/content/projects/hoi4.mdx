@@ -1,0 +1,25 @@
+---
+title: HOI4 division templates
+summary: A combat-model paper, a division-design cookbook, and an open-source Python pipeline for Hearts of Iron IV patch 1.18.
+year: "2026"
+status: building
+order: 40
+stack: [Python, Typst, Polymath]
+links:
+  github: https://github.com/dhayer200/hoi4
+tags: [hoi4, games, modeling]
+---
+
+## What it is
+
+A research project on division design in Hearts of Iron IV patch 1.18. Three deliverables: a combat-model paper, a practical cookbook of templates by role, and an open-source pipeline that simulates engagements and exposes the model's sensitivities.
+
+## What I built
+
+- A Python simulator that walks the patch 1.18 combat resolution step by step.
+- A Typst paper laid out with the [polymath](https://github.com/dhayer200/polymath) package — proofs, definitions, and named templates as first-class blocks.
+- A cookbook that maps templates to roles (line, breakthrough, garrison, recon, marines, mountaineers) with the math behind each choice.
+
+## What I learned
+
+Game balance is just an applied optimization problem with one weird constraint: the developers can change the objective function any time. Writing the paper changed how I read patch notes — every nerf is a perturbation of the same Lagrangian.

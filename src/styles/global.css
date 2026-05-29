@@ -1,0 +1,134 @@
+:root {
+  --bg: #fafaf7;
+  --fg: #1a1a1a;
+  --fg-muted: #555;
+  --rule: #ddd;
+  --accent: #9b1c1c;
+  --content-width: 720px;
+  --wide-width: 1100px;
+  --font-body: Charter, "Iowan Old Style", Georgia, "Times New Roman", serif;
+  --font-ui: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", Menlo, monospace;
+}
+
+:root[data-theme="dark"] {
+  --bg: #15171a;
+  --fg: #e6e6e6;
+  --fg-muted: #999;
+  --rule: #2a2d33;
+  --accent: #d97676;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15171a;
+    --fg: #e6e6e6;
+    --fg-muted: #999;
+    --rule: #2a2d33;
+    --accent: #d97676;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+main.wide {
+  max-width: var(--wide-width);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 2.2em 0 0.6em;
+}
+
+h1 { font-size: 2rem; margin-top: 0; }
+h2 { font-size: 1.4rem; border-top: 1px solid var(--rule); padding-top: 1.5rem; }
+h3 { font-size: 1.15rem; }
+
+p, ul, ol, blockquote {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+a:hover { text-decoration-thickness: 2px; }
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+  background: rgba(155, 28, 28, 0.06);
+  padding: 0.1em 0.35em;
+  border-radius: 3px;
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--bg);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2.5rem 0;
+}
+
+blockquote {
+  border-left: 2px solid var(--rule);
+  margin-left: 0;
+  padding-left: 1rem;
+  color: var(--fg-muted);
+  font-style: italic;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}

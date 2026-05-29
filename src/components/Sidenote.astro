@@ -1,0 +1,16 @@
+---
+interface Props { n: number | string }
+const { n } = Astro.props;
+---
+
+<label class="sidenote-marker" for={`sn-${n}`}>{n}</label>
+<input type="checkbox" id={`sn-${n}`} class="sidenote-toggle" />
+<span class="sidenote"><span class="sidenote-n">{n}.</span> <slot /></span>
+
+<style>
+  .sidenote-n {
+    font-weight: 600;
+    color: var(--accent);
+    margin-right: 0.3em;
+  }
+</style>

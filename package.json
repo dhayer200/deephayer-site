@@ -1,0 +1,25 @@
+{
+  "name": "deephayer-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync": "node scripts/sync-essays.mjs",
+    "graph": "node scripts/build-link-graph.mjs",
+    "prebuild": "npm run sync && npm run graph",
+    "predev": "npm run sync && npm run graph",
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/sitemap": "^3.2.0",
+    "astro": "^5.0.0",
+    "d3": "^7.9.0",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3"
+  }
+}

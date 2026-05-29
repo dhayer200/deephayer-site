@@ -1,0 +1,80 @@
+@font-face {
+  font-family: "Charter";
+  src: local("Charter"), local("CharterBT-Roman");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Charter";
+  src: local("Charter-Italic"), local("CharterBT-Italic");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Charter";
+  src: local("Charter-Bold"), local("CharterBT-Bold");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+.prose p {
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
+.prose p:first-of-type {
+  margin-top: 0;
+}
+
+.prose a[href^="/"]::after,
+.prose a[href^="#"]::after {
+  content: "";
+}
+
+.prose a[href^="http"]::after {
+  content: "";
+}
+
+.prose .meta {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+  margin-bottom: 2rem;
+}
+
+.prose .meta a {
+  color: var(--fg-muted);
+}
+
+.prose-title {
+  font-family: var(--font-ui);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 0 0 0.4em;
+}
+
+.tag-chip {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.15em 0.7em;
+  margin-right: 0.4em;
+  color: var(--fg-muted);
+  text-decoration: none;
+}
+
+.tag-chip:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+}

@@ -1,0 +1,73 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Backlinks from "../../components/Backlinks.astro";
+import { getCollection } from "astro:content";
+import linkGraph from "../../data/link-graph.json";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+const { title, summary, year, status, stack, links, tags } = project.data;
+
+const backlinks = (linkGraph.backlinks?.[`project/${project.slug}`] ?? []) as {
+  title: string;
+  href: string;
+  kind: "essai" | "project";
+}[];
+---
+
+<Layout title={`${title} · Deep Hayer`} description={summary}>
+  <article class="prose">
+    <h1 class="prose-title">{title}</h1>
+    <div class="meta">
+      <span>{year}</span> · <span class={`status status-${status}`}>{status}</span>
+      {tags.length > 0 && (
+        <>
+          {" · "}
+          {tags.map((t) => (
+            <a class="tag-chip" href={`/tags/${t}`}>{t}</a>
+          ))}
+        </>
+      )}
+    </div>
+
+    <p class="summary"><em>{summary}</em></p>
+
+    {(links.live || links.github || links.paper) && (
+      <p class="links">
+        {links.live && <a href={links.live} target="_blank" rel="noopener">Live →</a>}
+        {links.github && <a href={links.github} target="_blank" rel="noopener">GitHub →</a>}
+        {links.paper && <a href={links.paper} target="_blank" rel="noopener">Paper →</a>}
+      </p>
+    )}
+
+    {stack.length > 0 && (
+      <p class="stack"><span class="stack-label">Stack:</span> {stack.join(" · ")}</p>
+    )}
+
+    <Content />
+
+    <Backlinks items={backlinks} />
+  </article>
+</Layout>
+
+<style>
+  .summary { font-size: 1.1rem; color: var(--fg-muted); }
+  .links { font-family: var(--font-ui); font-size: 0.95rem; }
+  .links a { margin-right: 1rem; }
+  .stack {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    color: var(--fg-muted);
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 0.5rem 0;
+  }
+  .stack-label { color: var(--fg); margin-right: 0.4em; }
+  .status { font-family: var(--font-ui); font-size: 0.85rem; text-transform: lowercase; }
+  .status-shipped { color: var(--accent); }
+</style>

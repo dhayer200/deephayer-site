@@ -1,0 +1,146 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { getCollection } from "astro:content";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const writing = (await getCollection("writing", ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 5);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+---
+
+<Layout wide>
+  <section class="hero">
+    <h1>Deep Hayer<span class="dot">.</span></h1>
+    <p class="positioning">
+      Applied math and business student in Austin. I build things and write
+      about what I learn — markets, models, and the people behind the deals.
+    </p>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Projects</h2>
+      <a class="see-all" href="/projects">all →</a>
+    </div>
+    <div class="grid">
+      {projects.map((p) => (
+        <ProjectCard
+          slug={p.slug}
+          title={p.data.title}
+          summary={p.data.summary}
+          year={p.data.year}
+          status={p.data.status}
+          tags={p.data.tags}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="block-head">
+      <h2>Recent essais</h2>
+      <a class="see-all" href="/essais">all →</a>
+    </div>
+    <ul class="essais-list">
+      {writing.map((w) => (
+        <li>
+          <a href={`/essais/${w.slug}`}>
+            <span class="date">{fmt(w.data.date)}</span>
+            <span class="title">{w.data.title}</span>
+            {w.data.summary && <span class="excerpt">{w.data.summary}</span>}
+          </a>
+        </li>
+      ))}
+      {writing.length === 0 && (
+        <li class="empty">Nothing published yet. Soon.</li>
+      )}
+    </ul>
+  </section>
+</Layout>
+
+<style>
+  .hero { padding: 2rem 0 1rem; }
+  .hero h1 {
+    font-family: var(--font-ui);
+    font-size: 3rem;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+  .hero .dot { color: var(--accent); }
+  .positioning {
+    font-size: 1.15rem;
+    max-width: 36rem;
+    color: var(--fg-muted);
+    margin: 0.75rem 0 0;
+  }
+  .block { margin-top: 3rem; }
+  .block-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .block-head h2 {
+    font-family: var(--font-ui);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin: 0;
+    border: none;
+    padding: 0;
+    color: var(--fg-muted);
+  }
+  .see-all {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+    text-decoration: none;
+  }
+  .see-all:hover { color: var(--accent); }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .essais-list { list-style: none; padding: 0; margin: 0; }
+  .essais-list li { border-bottom: 1px solid var(--rule); }
+  .essais-list a {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    color: var(--fg);
+    text-decoration: none;
+  }
+  .essais-list .date {
+    font-family: var(--font-ui);
+    font-size: 0.85rem;
+    color: var(--fg-muted);
+  }
+  .essais-list .title { font-weight: 500; }
+  .essais-list .excerpt {
+    grid-column: 2;
+    font-size: 0.92rem;
+    color: var(--fg-muted);
+    margin-top: 0.25rem;
+  }
+  .essais-list a:hover .title { color: var(--accent); }
+  .empty {
+    color: var(--fg-muted);
+    font-style: italic;
+    padding: 1rem 0;
+  }
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 2.25rem; }
+    .essais-list a { grid-template-columns: 1fr; gap: 0.2rem; }
+  }
+</style>

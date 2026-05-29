@@ -1,0 +1,99 @@
+---
+// Reads link-graph.json built by scripts/build-link-graph.mjs
+---
+
+<div id="graph-root"></div>
+
+<style>
+  #graph-root {
+    width: 100%;
+    height: 70vh;
+    min-height: 480px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+  }
+  #graph-root svg { width: 100%; height: 100%; display: block; }
+  .node-label {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    pointer-events: none;
+    fill: var(--fg);
+  }
+</style>
+
+<script>
+  import * as d3 from "d3";
+
+  const root = document.getElementById("graph-root");
+  if (root) {
+    const data = await fetch("/link-graph.json").then((r) => r.json());
+
+    const width = root.clientWidth;
+    const height = root.clientHeight;
+
+    const svg = d3.select(root).append("svg").attr("viewBox", `0 0 ${width} ${height}`);
+
+    const link = svg.append("g")
+      .attr("stroke", "#aaa")
+      .attr("stroke-opacity", 0.5)
+      .selectAll("line")
+      .data(data.links)
+      .join("line");
+
+    const node = svg.append("g")
+      .selectAll("g")
+      .data(data.nodes)
+      .join("g")
+      .style("cursor", "pointer")
+      .on("click", (_, d: any) => {
+        window.location.href = d.href;
+      });
+
+    node.append("circle")
+      .attr("r", (d: any) => (d.kind === "project" ? 8 : 5))
+      .attr("fill", (d: any) => (d.kind === "project" ? "#9b1c1c" : "#1a1a1a"));
+
+    node.append("text")
+      .attr("class", "node-label")
+      .attr("dx", 10)
+      .attr("dy", "0.32em")
+      .text((d: any) => d.title);
+
+    const simulation = d3
+      .forceSimulation(data.nodes)
+      .force("link", d3.forceLink(data.links).id((d: any) => d.id).distance(80))
+      .force("charge", d3.forceManyBody().strength(-200))
+      .force("center", d3.forceCenter(width / 2, height / 2))
+      .force("collide", d3.forceCollide().radius(30));
+
+    simulation.on("tick", () => {
+      link
+        .attr("x1", (d: any) => d.source.x)
+        .attr("y1", (d: any) => d.source.y)
+        .attr("x2", (d: any) => d.target.x)
+        .attr("y2", (d: any) => d.target.y);
+      node.attr("transform", (d: any) => `translate(${d.x},${d.y})`);
+    });
+
+    const drag = d3
+      .drag<SVGGElement, any>()
+      .on("start", (e, d) => {
+        if (!e.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
+      })
+      .on("drag", (e, d) => {
+        d.fx = e.x;
+        d.fy = e.y;
+      })
+      .on("end", (e, d) => {
+        if (!e.active) simulation.alphaTarget(0);
+        d.fx = null;
+        d.fy = null;
+      });
+
+    node.call(drag as any);
+  }
+</script>

@@ -1,0 +1,29 @@
+---
+title: chalkIQ
+summary: Sports prediction and quant signaling — Elo, Monte Carlo, calibration, CLV.
+year: "2025–present"
+status: building
+order: 10
+stack: [Python, Streamlit, Pandas, Plotly, The Odds API, Vercel]
+links:
+  live: https://chalk-iq.streamlit.app/
+  github: https://github.com/dhayer200/chalkIQ
+tags: [chalkiq, quant, sports]
+---
+
+## What it is
+
+A sports prediction and quant signaling platform built around Elo, Monte Carlo simulation, calibration tracking, CLV, and live odds. College basketball is the strongest current sport, with MLB and NBA in active development.
+
+## What I built
+
+- An Elo + Monte Carlo pipeline for college basketball, MLB, and NBA.
+- A Streamlit product with live odds, CLV tracking, and player-prop polling.
+- Newsletter, subscription, and landing infrastructure for the public-facing product.
+- A maintenance loop (`scripts/maintain.sh`) that keeps the data fresh.
+
+## What I learned
+
+Sports modeling is calibration-bound, not feature-bound. The marginal feature is rarely the next predictor — it's tighter, more honest calibration. Most of the lift from "interesting" features evaporates when you score them against the betting line.
+
+The Odds API is the right backbone for CLV work; you cannot trust the closing line from any single book.
