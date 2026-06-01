@@ -18,4 +18,4 @@ Endgame simulator working. Trade evaluator in progress.
 
 ## Status
 
-Early. Side project orbiting [HOI4 templates](/projects/hoi4) — both are applied optimization on games with public rules.
+Early. Applied optimization on a game with public rules.

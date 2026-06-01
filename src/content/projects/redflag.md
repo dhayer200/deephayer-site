@@ -10,7 +10,7 @@ links:
 tags: [redflag, transparency, consumer]
 ---
 
-A consumer transparency platform. Search any brand and see where its money goes — political donations, lobbying, issue alignment — with every claim sourced. Web first, mobile to follow.
+A consumer transparency platform. Search any brand and see where its money goes (political donations, lobbying, issue alignment), with every claim sourced. Web first, mobile to follow.
 
 ## Latest
 

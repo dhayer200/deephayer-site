@@ -13,4 +13,4 @@ A routing tool for Austin food rescue. Restaurants and grocers list surplus; pan
 
 ## Status
 
-Paused while chalkIQ and compIQ take priority. Scaffold of the matching service and a sketch of the partner intake flow exist. Civic tech lives and dies by partner intake, not by software, so the next move is field work, not code.
+Paused due to school & work, picking back up June 2026.

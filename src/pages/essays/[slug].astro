@@ -20,7 +20,7 @@ const fmt = (d: Date) =>
     <p class="meta">
       <time>{fmt(date)}</time>
       {tags.length > 0 && <>
-        {" — "}
+        {" · "}
         {tags.map((t, i) => (
           <>
             <a href={`/tags/${t}`}>#{t}</a>{i < tags.length - 1 && " "}

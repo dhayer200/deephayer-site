@@ -16,7 +16,7 @@ const projects = (await getCollection("projects")).sort(
       <>
         <dt>
           <a href={`/projects/${p.slug}`}>{p.data.title}</a>
-          <span class="meta">{p.data.year} — {p.data.status}</span>
+          <span class="meta">{p.data.year} · {p.data.status}</span>
         </dt>
         <dd>{p.data.summary}</dd>
       </>

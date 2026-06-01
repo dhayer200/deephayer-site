@@ -9,7 +9,7 @@ project: chalkiq
 
 The first model I ever shipped beat the market in backtest by four percent ROI. It looked great. It did not beat the market when I ran it against real closing lines for the next two weeks, because the four percent edge was never real.
 
-The mistake was not in the model. The mistake was in the score. I was measuring the model against the *opening* line, then comparing to a hypothetical bet placed at the opening line, then assuming I could capture the same edge at the closing line — which is the line that actually clears.
+The mistake was not in the model. The mistake was in the score. I was measuring the model against the *opening* line, then comparing to a hypothetical bet placed at the opening line, then assuming I could capture the same edge at the closing line, which is the line that actually clears.
 
 In sports markets the closing line is the consensus of every informed participant: the books, the sharps who move the line, and the late information that gets injected after the open. The closing line is the right benchmark precisely because it is the line you cannot beat without information no one else has.
 

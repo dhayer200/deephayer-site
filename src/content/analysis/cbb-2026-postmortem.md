@@ -1,5 +1,5 @@
 ---
-title: College basketball — 2025-26 model postmortem
+title: "College basketball: 2025-26 model postmortem"
 date: 2026-05-10
 description: What the model got right, what it got wrong, and what I am changing for next season.
 tags: [sports, modeling, postmortem]
@@ -14,7 +14,7 @@ The 2025-26 college basketball season ended in April. Here is what my model did 
 
 - Calibration: Brier score 0.189 against actual outcomes (coin-flip baseline 0.250), log loss 0.556 (baseline 0.693). Meaningful improvement over random, evaluated across 1,672 games.
 - CLV: mean -1.24% against closing lines, 44.9% beat-close rate across 1,559 tracked games. The model does not beat the closing line on average, consistent with market efficiency.
-- Backtest ROI: +43.5% flat staking across 1,076 bets, 75.2% win rate. Walk-forward, in-sample — the live number will be lower.
+- Backtest ROI: +43.5% flat staking across 1,076 bets, 75.2% win rate. Walk-forward, in-sample. The live number will be lower.
 
 ## What the model got right
 

@@ -21,7 +21,7 @@ Class B is a different market entirely. Asking rents are flat or slightly up. Co
 
 The mistake I see in the public commentary is treating "Austin office" as one market. It is two markets, and they are moving in opposite directions. If you are underwriting a Class A acquisition off the trophy asking rents, you are mispricing the deal by the size of the concession package. If you are underwriting Class B off the same headline trends, you are leaving money on the table.
 
-The Domain is its own third thing — closer to Class A behavior on rent but with a tenant mix more like B. I will write that up separately once I have more comps.
+The Domain is its own third thing, closer to Class A behavior on rent but with a tenant mix more like B. I will write that up separately once I have more comps.
 
 ## Open questions
 

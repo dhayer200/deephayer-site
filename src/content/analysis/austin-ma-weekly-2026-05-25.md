@@ -1,5 +1,5 @@
 ---
-title: Austin M&A — week of May 25, 2026
+title: "Austin M&A: week of May 25, 2026"
 date: 2026-05-25
 description: Three deals worth thinking about this week. One I would have done, one I would not, one I cannot tell yet.
 tags: [ma, austin, weekly]
@@ -29,6 +29,6 @@ A single-family office out of Houston took a sub-board-level stake in an Austin-
 
 - Whether anyone moves on the office portfolio that has been rumored for two months downtown.
 - The pace of Tesla Energy supplier deals; Bobcat and Base announced earlier this month and a third would suggest the pattern is real.
-- The boutique IB league tables for Q2 — I want to see whose names are showing up on Austin deals before I send cold emails.
+- The boutique IB league tables for Q2. I want to see whose names are showing up on Austin deals before I send cold emails.
 
 If any of these are wrong or you have a deal I should look at, <a href="mailto:deephayer940@gmail.com">email me</a>.
