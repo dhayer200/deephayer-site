@@ -1,6 +1,6 @@
 ---
 title: Why I'm writing here
-date: 2026-05-29
+date: 2026-05-15
 description: A short note on why this site exists and what I plan to do with it.
 tags: [meta, writing]
 status: published

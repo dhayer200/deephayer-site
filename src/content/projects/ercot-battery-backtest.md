@@ -18,4 +18,4 @@ The heuristic captures 93 to 97 percent of LP revenue on DAM across all five zon
 
 ## Status
 
-Shipped. The honest finding is that on ERCOT DAM, a battery operator does not need a forecasting model; they need an execution model. Built to send to [Base Power](https://basepowercompany.com) and Plus Power and Jupiter Power before cold outreach.
+Shipped. The honest finding is that on ERCOT DAM, a battery operator does not need a forecasting model; they need an execution model.
